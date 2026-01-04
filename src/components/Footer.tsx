@@ -108,11 +108,14 @@ const Footer = () => {
             reservados.
           </p>
           </div>
-        <div class="flex items-center space-x-2 text-gray-500 hover:text-[#D4AF37] transition-all duration-300">
-            <span>Desenvolvido por</span>
-            <a href="https://vendaia.site" target="_blank" rel="noopener noreferrer" class="font-bold tracking-tighter hover:scale-105 transform transition">
-                <span class="text-white">VENDAIA</span><span class="text-[#D4AF37]">.SITE</span>
+        <div class="flex flex-col items-center justify-center space-y-2 group">
+            <span class="text-[10px] text-gray-600 uppercase tracking-[0.2em]">Desenvolvido por</span>
+            <a href="https://vendaia.site" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center space-x-1 text-lg tracking-tighter transition-all duration-500 group-hover:letter-spacing-widest">
+                
+                <span class="text-[#D4AF37] font-bold">VENDAIA</span>
             </a>
+            <div class="w-0 group-hover:w-12 h-[1px] bg-[#D4AF37] transition-all duration-500"></div>
         </div>
       </div>
     </footer>
