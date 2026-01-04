@@ -58,9 +58,9 @@ const Contact = () => {
     formData.whatsapp;
 
   return (
-    <section className="min-h-screen pt-24 pb-20 relative flex flex-col lg:flex-row">
+    <section className="min-h-screen pt-20 md:pt-24 pb-0 md:pb-0 relative flex flex-col lg:flex-row">
       {/* Left Image Side */}
-      <div className="w-full lg:w-1/2 relative bg-gray-900 min-h-[400px] lg:min-h-full group">
+      <div className="w-full lg:w-1/2 relative bg-gray-900 min-h-[300px] md:min-h-[400px] lg:min-h-full group">
         <img
           src="https://picsum.photos/id/164/800/1200"
           alt="Projeto em Destaque"
@@ -69,22 +69,22 @@ const Contact = () => {
       </div>
 
       {/* Right Form Side */}
-      <div className="w-full lg:w-1/2 bg-brand-slate text-white p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-        <h4 className="text-brand-gold uppercase tracking-[0.3em] text-xs font-medium mb-4">
+      <div className="w-full lg:w-1/2 bg-brand-slate text-white p-6 md:p-8 lg:p-12 xl:p-16 flex flex-col justify-center">
+        <h4 className="text-brand-gold uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs font-medium mb-3 md:mb-4">
           Contacto
         </h4>
-        <h2 className="text-3xl md:text-4xl font-header font-light mb-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-header font-light mb-6 md:mb-8">
           Pronto para Começar o{" "}
           <span className="font-medium text-brand-gold">Seu Projeto?</span>
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
           {/* Project Type Toggle */}
-          <div className="flex gap-2 mb-6 bg-gray-800 p-1 rounded-sm">
+          <div className="flex gap-2 mb-4 md:mb-6 bg-gray-800 p-1 rounded-sm">
             <button
               type="button"
               onClick={() => setProjectType("novo")}
-              className={`flex-1 py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
+              className={`flex-1 py-2.5 md:py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
                 projectType === "novo"
                   ? "bg-brand-gold text-white"
                   : "text-gray-400 hover:text-white"
@@ -95,7 +95,7 @@ const Contact = () => {
             <button
               type="button"
               onClick={() => setProjectType("remodelacao")}
-              className={`flex-1 py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
+              className={`flex-1 py-2.5 md:py-3 text-xs uppercase tracking-widest font-medium rounded-sm transition-all ${
                 projectType === "remodelacao"
                   ? "bg-brand-gold text-white"
                   : "text-gray-400 hover:text-white"

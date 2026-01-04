@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-gelinho.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,18 +31,18 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 top-0 transition-all duration-500 ease-in-out border-b border-transparent ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-4"
-          : "bg-transparent py-6"
+          ? "bg-white/95 backdrop-blur-md shadow-md py-3"
+          : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - Larger and more visible */}
           <Link to="/" className="flex-shrink-0 cursor-pointer">
             <img
               src={logo}
-              alt="Gelinhoo ProjectArt"
-              className="h-12 md:h-14 w-auto"
+              alt="Gelinho ProjectArt"
+              className="h-16 md:h-20 lg:h-24 w-auto"
             />
           </Link>
 
