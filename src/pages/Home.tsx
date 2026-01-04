@@ -1,0 +1,375 @@
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import heroImage from "@/assets/hero.jpeg";
+import { WireframeCube, WireframeGrid } from "@/components/WireframeShapes";
+
+const Home = () => {
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addToRefs = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
+
+  // Portfolio images from public folder
+  const marqueeImages1 = [
+    "/portfolio/p2.jpeg",
+    "/portfolio/p3.jpeg",
+    "/portfolio/p6.jpeg",
+    "/portfolio/p8.jpeg",
+    "/portfolio/p9.jpeg",
+  ];
+  const marqueeImages2 = [
+    "/portfolio/p10.jpeg",
+    "/portfolio/p11.jpeg",
+    "/portfolio/p12.jpeg",
+    "/portfolio/p13.jpeg",
+    "/portfolio/p14.jpeg",
+  ];
+
+  const partners = [
+    { name: "Ministério", icon: "fa-landmark" },
+    { name: "BNA", icon: "fa-university" },
+    { name: "Sonangol", icon: "fa-oil-well" },
+    { name: "Unitel", icon: "fa-signal" },
+  ];
+
+  return (
+    <div className="relative w-full overflow-hidden">
+      {/* 1. FIXED HERO SECTION */}
+      <section className="fixed inset-0 w-full h-screen flex items-center justify-center overflow-hidden bg-foreground -z-10">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={heroImage}
+            alt="Urban Architecture"
+            className="w-full h-full object-cover"
+          />
+          {/* Stronger Dark Overlay for Text Contrast */}
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center justify-center h-full pt-16">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-white mb-5 tracking-tight leading-none drop-shadow-xl animate-fade-in-up">
+            Soluções mais criativas
+          </h1>
+
+          <div className="space-y-2 mb-8 animate-fade-in-up-delay-1">
+            <p className="text-base md:text-lg lg:text-xl text-gray-100 font-light leading-relaxed">
+              Facilitamos o acesso a um projeto para quem almeja qualidade de vida.
+            </p>
+            <p className="text-sm md:text-base lg:text-lg text-gray-200 font-light">
+              Traçamos sonhos, erguemos conforto.
+            </p>
+          </div>
+
+          <Link
+            to="/contacto"
+            className="bg-white text-foreground hover:bg-gray-100 px-8 py-3 rounded-full font-medium text-xs md:text-sm transition-all duration-300 shadow-xl hover:scale-105 animate-fade-in-up-delay-2"
+          >
+            Peça o orçamento para o seu projeto
+          </Link>
+
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow opacity-70">
+            <i className="fas fa-chevron-down text-white text-xl"></i>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. MAIN CONTENT OVERLAY */}
+      <div className="relative z-20 mt-[100vh] bg-background shadow-[0_-20px_30px_rgba(0,0,0,0.1)]">
+        {/* SECTION: A EMPRESA */}
+        <section className="py-32 px-4 max-w-7xl mx-auto relative">
+          {/* Structural Decoration Background */}
+          <div className="absolute top-0 right-0 w-1/3 h-full border-l border-brand-gold/10 -z-10"></div>
+          <div className="absolute bottom-20 left-20 w-40 h-40 border border-border -z-10"></div>
+
+          {/* Wireframe 3D Cube */}
+          <div className="absolute top-20 right-10 z-[5] opacity-60 pointer-events-none hidden lg:block">
+            <WireframeCube />
+          </div>
+
+          <div
+            ref={addToRefs}
+            className="reveal-element grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10"
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 bg-brand-gold/10 rounded-lg transform rotate-3 z-0"></div>
+              <img
+                src="https://picsum.photos/id/434/600/700"
+                alt="About Gelinhoo"
+                className="relative rounded-lg shadow-2xl z-10 bg-white p-2"
+              />
+            </div>
+
+            <div>
+              <h3 className="text-brand-gold uppercase tracking-[0.4em] text-xs font-medium mb-4">
+                Quem Somos
+              </h3>
+              <h2 className="text-3xl md:text-5xl font-header font-light text-brand-slate mb-8 leading-tight">
+                Construindo Legados <br />
+                <span className="font-medium text-brand-gold">Desde a Fundação.</span>
+              </h2>
+
+              <div className="w-20 h-[1px] bg-brand-gold mb-8"></div>
+
+              <p className="text-muted-foreground font-light leading-loose text-lg mb-6">
+                <span className="text-brand-slate font-medium">
+                  Gelinhoo Projectart (SU), LDA
+                </span>{" "}
+                - NIF 5001115006. Trabalhamos a pensar em si para deixar o seu
+                empreendimento mais bonito.
+              </p>
+              <p className="text-muted-foreground font-light leading-loose mb-8">
+                Combinamos rigor técnico com sensibilidade artística para entregar
+                obras que não são apenas estruturas, mas marcos de design em Angola.
+              </p>
+
+              <div className="flex items-center gap-4">
+                <div className="bg-brand-gray p-4 rounded-full border border-border shadow-sm">
+                  <i className="fas fa-hard-hat text-brand-gold text-xl"></i>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                    Excelência Certificada
+                  </p>
+                  <p className="text-brand-slate font-medium">NIF: 5001115006</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION: SERVIÇOS */}
+        <section className="py-32 bg-secondary bg-texture-rich relative overflow-hidden">
+          {/* Structural Lines */}
+          <div className="absolute top-10 left-10 w-[80%] h-[1px] bg-brand-gold/20"></div>
+          <div className="absolute top-10 left-10 w-[1px] h-[80%] bg-brand-gold/20"></div>
+
+          {/* Wireframe 3D Grid */}
+          <div className="absolute bottom-20 right-20 z-[5] opacity-50 pointer-events-none hidden lg:block">
+            <WireframeGrid />
+          </div>
+          <div className="absolute top-40 left-16 z-[5] opacity-40 pointer-events-none hidden xl:block">
+            <WireframeGrid className="scale-75" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
+            <div className="text-center mb-20">
+              <h2
+                ref={addToRefs}
+                className="reveal-element text-4xl md:text-5xl font-header font-light text-brand-slate mb-4"
+              >
+                Nossas Especialidades
+              </h2>
+              <div className="w-12 h-[2px] bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Card 1 */}
+              <div
+                ref={addToRefs}
+                className="reveal-element group bg-background p-10 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-border relative overflow-hidden"
+                style={{ transitionDelay: "100ms" }}
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-brand-gold transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="text-brand-gold text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <i className="fa-solid fa-compass-drafting"></i>
+                </div>
+                <h3 className="text-xl font-header font-medium text-brand-slate mb-4 group-hover:text-brand-gold transition-colors">
+                  Arquitetura
+                </h3>
+                <p className="text-muted-foreground text-sm font-light leading-relaxed">
+                  Projetos 3D inovadores que combinam função e beleza.
+                </p>
+                <Link
+                  to="/servicos"
+                  className="inline-block mt-6 text-brand-gold text-xs uppercase tracking-widest font-medium group-hover:translate-x-2 transition-transform"
+                >
+                  Saber mais →
+                </Link>
+              </div>
+
+              {/* Card 2 */}
+              <div
+                ref={addToRefs}
+                className="reveal-element group bg-background p-10 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-border relative overflow-hidden"
+                style={{ transitionDelay: "200ms" }}
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-brand-gold transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="text-brand-gold text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <i className="fa-solid fa-couch"></i>
+                </div>
+                <h3 className="text-xl font-header font-medium text-brand-slate mb-4 group-hover:text-brand-gold transition-colors">
+                  Interiores
+                </h3>
+                <p className="text-muted-foreground text-sm font-light leading-relaxed">
+                  Design de interiores sofisticado e personalizado.
+                </p>
+                <Link
+                  to="/servicos"
+                  className="inline-block mt-6 text-brand-gold text-xs uppercase tracking-widest font-medium group-hover:translate-x-2 transition-transform"
+                >
+                  Saber mais →
+                </Link>
+              </div>
+
+              {/* Card 3 */}
+              <div
+                ref={addToRefs}
+                className="reveal-element group bg-background p-10 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-border relative overflow-hidden"
+                style={{ transitionDelay: "300ms" }}
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-brand-gold transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="text-brand-gold text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <i className="fa-solid fa-trowel-bricks"></i>
+                </div>
+                <h3 className="text-xl font-header font-medium text-brand-slate mb-4 group-hover:text-brand-gold transition-colors">
+                  Construção
+                </h3>
+                <p className="text-muted-foreground text-sm font-light leading-relaxed">
+                  Obras de alta qualidade com acabamentos premium.
+                </p>
+                <Link
+                  to="/servicos"
+                  className="inline-block mt-6 text-brand-gold text-xs uppercase tracking-widest font-medium group-hover:translate-x-2 transition-transform"
+                >
+                  Saber mais →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION: DIAGONAL MARQUEE PORTFOLIO */}
+        <section className="py-20 bg-background bg-dots relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
+            <h4 className="text-brand-gold uppercase tracking-[0.3em] text-xs font-medium mb-2">
+              Portfólio
+            </h4>
+            <h2 className="text-4xl font-header font-light text-brand-slate">
+              Obras de Arte Reais
+            </h2>
+          </div>
+
+          {/* Marquee Container (Rotated) */}
+          <div className="relative w-full h-[600px] overflow-hidden -skew-y-3 scale-110">
+            {/* Row 1: Left to Right */}
+            <div className="flex space-x-6 w-[200%] animate-marquee mb-6">
+              {[...marqueeImages1, ...marqueeImages1].map((img, index) => (
+                <div
+                  key={`row1-${index}`}
+                  className="w-80 h-60 flex-shrink-0 relative rounded-lg overflow-hidden group shadow-lg"
+                >
+                  <img
+                    src={img}
+                    alt="Portfolio Gelinhoo"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-brand-gold/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+              ))}
+            </div>
+
+            {/* Row 2: Right to Left */}
+            <div className="flex space-x-6 w-[200%] animate-marquee-reverse -translate-x-1/2">
+              {[...marqueeImages2, ...marqueeImages2].map((img, index) => (
+                <div
+                  key={`row2-${index}`}
+                  className="w-80 h-60 flex-shrink-0 relative rounded-lg overflow-hidden group shadow-lg"
+                >
+                  <img
+                    src={img}
+                    alt="Portfolio Gelinhoo"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-brand-gold/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-12 relative z-10">
+            <Link
+              to="/portfolio"
+              className="inline-block border border-brand-slate text-brand-slate px-8 py-3 rounded-full uppercase tracking-widest text-xs font-medium hover:bg-brand-slate hover:text-white transition-colors"
+            >
+              Ver Galeria Completa
+            </Link>
+          </div>
+        </section>
+
+        {/* SECTION: CLIENTES & PARCEIROS */}
+        <section className="py-24 bg-background bg-noise border-t border-border relative">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h4 className="text-gray-400 uppercase tracking-[0.3em] text-xs font-medium mb-12 animate-fade-in-up">
+              Confiam no nosso trabalho
+            </h4>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 opacity-80">
+              {partners.map((partner) => (
+                <div
+                  key={partner.name}
+                  className="group flex items-center justify-center p-8 border border-border bg-secondary hover:bg-background hover:shadow-xl hover:border-brand-gold/30 transition-all duration-500 rounded-xl cursor-default"
+                >
+                  <div className="text-center">
+                    <i
+                      className={`fa-solid ${partner.icon} text-3xl mb-3 text-gray-300 group-hover:text-brand-gold transition-colors duration-500`}
+                    ></i>
+                    <h5 className="text-sm font-medium text-gray-400 uppercase tracking-wider group-hover:text-brand-slate transition-colors duration-500">
+                      {partner.name}
+                    </h5>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA FINAL */}
+        <section className="py-24 bg-secondary bg-texture-rich relative border-t border-border">
+          {/* Decorative Blueprint Lines */}
+          <div className="absolute inset-0 bg-blueprint opacity-10"></div>
+
+          <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
+            <h2 className="text-3xl md:text-5xl text-brand-slate font-header font-light mb-8">
+              Pronto para erguer o seu sonho?
+            </h2>
+            <p className="text-gray-500 mb-10 font-light text-lg">
+              A excelência começa com uma conversa.
+            </p>
+            <Link
+              to="/contacto"
+              className="inline-block px-10 py-4 bg-brand-gold text-white font-medium uppercase tracking-widest hover:bg-brand-gold-dark transition-all duration-300 rounded-full shadow-lg hover:shadow-xl text-sm"
+            >
+              Solicitar Consulta Gratuita
+            </Link>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

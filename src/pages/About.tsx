@@ -1,0 +1,168 @@
+import { useEffect, useRef } from "react";
+import ceoImage from "@/assets/team/ceo-magdiel.jpeg";
+import aboutImage1 from "@/assets/about/about-1.jpeg";
+import aboutImage2 from "@/assets/about/about-2.jpeg";
+
+const About = () => {
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addToRefs = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
+
+  const team = [
+    {
+      name: "Magdiel Tigre",
+      role: "Arquitecto & CEO",
+      image: ceoImage,
+      instagram: "https://www.instagram.com/__mvgdiell",
+    },
+  ];
+
+  return (
+    <>
+      {/* Intro Section */}
+      <section className="min-h-screen pt-32 pb-20 bg-brand-gray bg-texture relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Text Content */}
+            <div>
+              <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-4">
+                Sobre Nós
+              </h4>
+              <h2 className="text-3xl md:text-5xl font-header font-light text-brand-slate mb-8">
+                Excelência e Solidez <br />
+                <span className="font-medium text-brand-gold">em cada traço.</span>
+              </h2>
+              <div className="w-20 h-[3px] bg-brand-gold mb-10"></div>
+
+              <p className="text-gray-600 leading-loose font-light mb-6 text-lg">
+                A{" "}
+                <span className="text-brand-slate font-medium">
+                  Gelinhoo Projectart (SU), LDA
+                </span>{" "}
+                é uma referência no mercado angolano, dedicando-se à criação de
+                espaços que transcendem a função básica de abrigo. Combinamos
+                inovação técnica com uma sensibilidade artística apurada.
+              </p>
+              <p className="text-gray-600 leading-loose font-light mb-10 text-lg">
+                Atendemos clientes residenciais premium e entidades governamentais,
+                garantindo rigor, transparência e acabamentos de nível
+                internacional.
+              </p>
+
+              <div className="inline-flex items-center px-8 py-4 border border-brand-gold/20 bg-white shadow-lg rounded-sm">
+                <i className="fas fa-certificate text-brand-gold text-2xl mr-6"></i>
+                <div className="text-left">
+                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">
+                    Entidade Certificada
+                  </p>
+                  <p className="text-brand-slate font-mono tracking-wider text-lg font-medium">
+                    NIF: 5001115006
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Image Grid */}
+            <div className="grid grid-cols-2 gap-6 relative">
+              <div className="space-y-6 pt-12">
+                <img
+                  src={aboutImage1}
+                  alt="Projeto Exterior - Gelinho Projectart"
+                  className="rounded-sm shadow-2xl filter grayscale hover:grayscale-0 transition-all duration-700 hover:-translate-y-2"
+                />
+              </div>
+              <div className="space-y-6">
+                <img
+                  src={aboutImage2}
+                  alt="Projeto Arquitetónico - Gelinho Projectart"
+                  className="rounded-sm shadow-2xl border-4 border-white hover:-translate-y-2 transition-transform duration-700"
+                />
+              </div>
+              {/* Decorative Square */}
+              <div className="absolute -z-10 top-0 right-0 w-40 h-40 border-2 border-brand-gold/20 mt-[-20px] mr-[-20px]"></div>
+              <div className="absolute -z-10 bottom-0 left-0 w-40 h-40 bg-brand-gold/10 mb-[-20px] ml-[-20px]"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nosso Team Section */}
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-4">
+              Liderança
+            </h4>
+            <h2 className="text-3xl md:text-5xl font-header font-light text-brand-slate">
+              Nosso Team
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            {team.map((member) => (
+              <div key={member.name} className="group relative">
+                <div
+                  ref={addToRefs}
+                  className="reveal-element relative overflow-hidden rounded-sm mb-6 aspect-[3/4] bg-gray-100"
+                >
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+                  />
+
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Social Icons on Hover */}
+                  <div className="absolute bottom-4 left-0 w-full flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                    {member.instagram && (
+                      <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-gold">
+                        <i className="fab fa-instagram text-lg"></i>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <h3 className="text-xl font-header font-medium text-brand-slate group-hover:text-brand-gold transition-colors duration-300">
+                    {member.name}
+                  </h3>
+                  <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default About;
