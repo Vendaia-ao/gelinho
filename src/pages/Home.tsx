@@ -85,8 +85,8 @@ const Home = () => {
           </div>
 
           <Link
-            to="/contacto"
-            className="bg-white text-foreground hover:bg-gray-100 px-6 md:px-8 py-3 rounded-full font-medium text-xs md:text-sm transition-all duration-300 shadow-xl hover:scale-105 animate-fade-in-up-delay-2"
+            to="/contacto#formulario"
+            className="bg-white text-foreground hover:bg-brand-gold hover:text-white px-6 md:px-8 py-3 rounded-full font-medium text-xs md:text-sm transition-all duration-300 shadow-xl hover:scale-105 animate-fade-in-up-delay-2"
           >
             Peça o orçamento para o seu projeto
           </Link>

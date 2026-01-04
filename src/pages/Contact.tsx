@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
+  const location = useLocation();
   const { toast } = useToast();
+  
+  useEffect(() => {
+    if (location.hash === "#formulario") {
+      const formElement = document.getElementById("formulario");
+      if (formElement) {
+        setTimeout(() => {
+          formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   const [projectType, setProjectType] = useState<"novo" | "remodelacao">("novo");
   const [formData, setFormData] = useState({
     isHouse: false,
@@ -78,7 +92,7 @@ const Contact = () => {
           <span className="font-medium text-brand-gold">Seu Projeto?</span>
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+        <form id="formulario" onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
           {/* Project Type Toggle */}
           <div className="flex gap-2 mb-4 md:mb-6 bg-gray-800 p-1 rounded-sm">
             <button
