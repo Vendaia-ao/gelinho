@@ -107,8 +107,7 @@ const Footer = () => {
             &copy; {currentYear} Gelinhoo Projectart (SU), LDA. Todos os direitos
             reservados.
           </p>
-          </div>
-        <div class="flex flex-col items-center justify-center space-y-2 group">
+          <div class="flex flex-col items-center justify-center space-y-2 group">
             <span class="text-[10px] text-gray-600 uppercase tracking-[0.2em]">Desenvolvido por</span>
             <a href="https://vendaia.site" target="_blank" rel="noopener noreferrer" 
                class="flex items-center space-x-1 text-lg tracking-tighter transition-all duration-500 group-hover:letter-spacing-widest">
@@ -117,6 +116,8 @@ const Footer = () => {
             </a>
             <div class="w-0 group-hover:w-12 h-[1px] bg-[#D4AF37] transition-all duration-500"></div>
         </div>
+          </div>
+        
       </div>
     </footer>
   );
