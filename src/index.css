@@ -6,10 +6,10 @@
 
 @layer base {
   :root {
-    /* Brand Colors - Premium Architecture Theme */
-    --brand-gold: 43 76% 52%;
-    --brand-gold-light: 47 75% 81%;
-    --brand-gold-dark: 43 70% 36%;
+    /* Brand Colors - Premium Architecture Theme - Updated Gold from FILDA reference */
+    --brand-gold: 42 85% 48%;
+    --brand-gold-light: 45 80% 65%;
+    --brand-gold-dark: 38 90% 35%;
     --brand-slate: 0 0% 20%;
     --brand-gray: 210 20% 98%;
     
@@ -23,7 +23,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    --primary: 43 76% 52%;
+    --primary: 42 85% 48%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 20% 98%;
@@ -32,7 +32,7 @@
     --muted: 210 20% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 43 76% 52%;
+    --accent: 42 85% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -40,7 +40,7 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 43 76% 52%;
+    --ring: 42 85% 48%;
 
     --radius: 0.125rem;
 
@@ -100,9 +100,9 @@
     opacity: 0.06;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(ellipse at 30% 20%, hsl(43 76% 52% / 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, hsl(43 76% 52% / 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, hsl(47 75% 81% / 0.04) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%, hsl(42 85% 48% / 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, hsl(42 85% 48% / 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, hsl(45 80% 65% / 0.04) 0%, transparent 60%);
   }
 
   /* Dot Matrix Grid Pattern - Gold Tinted */
@@ -116,7 +116,7 @@
     opacity: 0.08;
     z-index: 1;
     pointer-events: none;
-    background-image: radial-gradient(circle at center, hsl(43 76% 52%) 0.5px, transparent 0.5px);
+    background-image: radial-gradient(circle at center, hsl(42 85% 48%) 0.5px, transparent 0.5px);
     background-size: 16px 16px;
   }
 
@@ -140,9 +140,9 @@
     opacity: 0.1;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(ellipse at 20% 30%, hsl(43 76% 52% / 0.1) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 70%, hsl(43 76% 52% / 0.08) 0%, transparent 45%),
-                radial-gradient(circle at center, hsl(43 76% 52%) 0.4px, transparent 0.4px);
+    background: radial-gradient(ellipse at 20% 30%, hsl(42 85% 48% / 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, hsl(42 85% 48% / 0.08) 0%, transparent 45%),
+                radial-gradient(circle at center, hsl(42 85% 48%) 0.4px, transparent 0.4px);
     background-size: 100% 100%, 100% 100%, 12px 12px;
   }
 
@@ -175,7 +175,7 @@
     position: absolute;
     width: 120px;
     height: 120px;
-    border: 1px solid hsl(43 76% 52% / 0.15);
+    border: 1px solid hsl(42 85% 48% / 0.15);
     background: transparent;
   }
 

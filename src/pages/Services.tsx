@@ -98,7 +98,7 @@ const Services = () => {
   return (
     <div className="w-full overflow-hidden">
       {/* HERO HEADER */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-24">
+      <section className="relative min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 z-0">
           <img
             src={heroServicesImg}
@@ -109,13 +109,13 @@ const Services = () => {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl">
-          <h4 className="text-brand-gold uppercase tracking-[0.3em] text-xs font-medium mb-4 animate-fade-in-up">
+          <h4 className="text-brand-gold uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs font-medium mb-3 md:mb-4 animate-fade-in-up">
             Serviços
           </h4>
-          <h1 className="text-4xl md:text-6xl font-header font-light text-white mb-6 animate-fade-in-up-delay-1">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-header font-light text-white mb-4 md:mb-6 animate-fade-in-up-delay-1">
             O que Fazemos de <span className="font-medium">Melhor</span>
           </h1>
-          <div className="w-16 h-[2px] bg-brand-gold mx-auto"></div>
+          <div className="w-12 md:w-16 h-[2px] bg-brand-gold mx-auto"></div>
         </div>
       </section>
 
@@ -123,13 +123,13 @@ const Services = () => {
       {services.map((service, index) => (
         <section
           key={service.id}
-          className={`py-24 ${
+          className={`py-12 md:py-24 ${
             index % 2 === 0 ? "bg-white" : "bg-brand-gray bg-texture"
           } relative overflow-hidden`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
-              className={`flex flex-col lg:flex-row items-center gap-16 ${
+              className={`flex flex-col lg:flex-row items-center gap-8 md:gap-16 ${
                 index % 2 !== 0 ? "lg:flex-row-reverse" : ""
               }`}
             >
@@ -138,30 +138,30 @@ const Services = () => {
                 ref={addToRefs}
                 className="reveal-element w-full lg:w-1/2"
               >
-                <div className="inline-flex items-center gap-4 mb-8 px-6 py-3 bg-brand-gold/10 rounded-sm">
+                <div className="inline-flex items-center gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 bg-brand-gold/10 rounded-sm">
                   <i
-                    className={`fa-solid ${service.icon} text-brand-gold text-2xl`}
+                    className={`fa-solid ${service.icon} text-brand-gold text-xl md:text-2xl`}
                   ></i>
                   <span className="text-brand-gold text-xs uppercase font-medium tracking-widest">
                     Serviço {String(service.id).padStart(2, "0")}
                   </span>
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-header font-light text-brand-slate mb-8 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-header font-light text-brand-slate mb-6 md:mb-8 leading-tight">
                   {service.title}
                 </h2>
 
-                <p className="text-gray-600 font-light leading-loose mb-10">
+                <p className="text-gray-600 font-light leading-relaxed md:leading-loose mb-8 md:mb-10 text-sm md:text-base">
                   {service.description}
                 </p>
 
-                <div className="space-y-4 border-l-2 border-brand-gold/20 pl-6">
+                <div className="space-y-3 md:space-y-4 border-l-2 border-brand-gold/20 pl-4 md:pl-6">
                   {service.features.map((feature, fIndex) => (
                     <div
                       key={fIndex}
-                      className="flex items-center gap-4 text-gray-700 font-light"
+                      className="flex items-start md:items-center gap-3 md:gap-4 text-gray-700 font-light text-sm md:text-base"
                     >
-                      <i className="fas fa-check-circle text-brand-gold text-sm"></i>
+                      <i className="fas fa-check-circle text-brand-gold text-sm mt-0.5 md:mt-0"></i>
                       <span>{feature}</span>
                     </div>
                   ))}
@@ -196,15 +196,15 @@ const Services = () => {
       ))}
 
       {/* FINAL CTA */}
-      <section className="py-24 bg-brand-slate text-center relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-brand-slate text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-cubes"></div>
         <div className="relative z-10 px-4">
-          <h2 className="text-3xl text-white font-light mb-8">
+          <h2 className="text-2xl sm:text-3xl text-white font-light mb-6 md:mb-8">
             Tem um projeto complexo em mente?
           </h2>
           <Link
             to="/contacto"
-            className="px-10 py-4 bg-brand-gold text-white font-medium uppercase tracking-widest hover:bg-white hover:text-brand-slate transition-all duration-300 rounded-sm inline-block"
+            className="px-8 md:px-10 py-3 md:py-4 bg-brand-gold text-white font-medium uppercase tracking-widest hover:bg-white hover:text-brand-slate transition-all duration-300 rounded-sm inline-block text-sm"
           >
             Fale com um Engenheiro
           </Link>

@@ -44,21 +44,21 @@ const About = () => {
   return (
     <>
       {/* Intro Section */}
-      <section className="min-h-screen pt-32 pb-20 bg-brand-gray bg-texture relative">
+      <section className="min-h-screen pt-24 md:pt-32 pb-12 md:pb-20 bg-brand-gray bg-texture relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Text Content */}
-            <div>
-              <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-4">
+            <div className="order-2 lg:order-1">
+              <h4 className="text-brand-gold font-medium uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs mb-3 md:mb-4">
                 Sobre Nós
               </h4>
-              <h2 className="text-3xl md:text-5xl font-header font-light text-brand-slate mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-header font-light text-brand-slate mb-6 md:mb-8">
                 Excelência e Solidez <br />
                 <span className="font-medium text-brand-gold">em cada traço.</span>
               </h2>
-              <div className="w-20 h-[3px] bg-brand-gold mb-10"></div>
+              <div className="w-16 md:w-20 h-[3px] bg-brand-gold mb-8 md:mb-10"></div>
 
-              <p className="text-gray-600 leading-loose font-light mb-6 text-lg">
+              <p className="text-gray-600 leading-relaxed md:leading-loose font-light mb-4 md:mb-6 text-base md:text-lg">
                 A{" "}
                 <span className="text-brand-slate font-medium">
                   Gelinhoo Projectart (SU), LDA
@@ -67,19 +67,19 @@ const About = () => {
                 espaços que transcendem a função básica de abrigo. Combinamos
                 inovação técnica com uma sensibilidade artística apurada.
               </p>
-              <p className="text-gray-600 leading-loose font-light mb-10 text-lg">
+              <p className="text-gray-600 leading-relaxed md:leading-loose font-light mb-8 md:mb-10 text-sm md:text-lg">
                 Atendemos clientes residenciais premium e entidades governamentais,
                 garantindo rigor, transparência e acabamentos de nível
                 internacional.
               </p>
 
-              <div className="inline-flex items-center px-8 py-4 border border-brand-gold/20 bg-white shadow-lg rounded-sm">
-                <i className="fas fa-certificate text-brand-gold text-2xl mr-6"></i>
+              <div className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 border border-brand-gold/20 bg-white shadow-lg rounded-sm">
+                <i className="fas fa-certificate text-brand-gold text-xl md:text-2xl mr-4 md:mr-6"></i>
                 <div className="text-left">
                   <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">
                     Entidade Certificada
                   </p>
-                  <p className="text-brand-slate font-mono tracking-wider text-lg font-medium">
+                  <p className="text-brand-slate font-mono tracking-wider text-base md:text-lg font-medium">
                     NIF: 5001115006
                   </p>
                 </div>
@@ -87,47 +87,47 @@ const About = () => {
             </div>
 
             {/* Image Grid */}
-            <div className="grid grid-cols-2 gap-6 relative">
-              <div className="space-y-6 pt-12">
+            <div className="grid grid-cols-2 gap-4 md:gap-6 relative order-1 lg:order-2">
+              <div className="space-y-4 md:space-y-6 pt-0 md:pt-12">
                 <img
                   src={aboutImage1}
                   alt="Projeto Exterior - Gelinho Projectart"
                   className="rounded-sm shadow-2xl filter grayscale hover:grayscale-0 transition-all duration-700 hover:-translate-y-2"
                 />
               </div>
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 <img
                   src={aboutImage2}
                   alt="Projeto Arquitetónico - Gelinho Projectart"
-                  className="rounded-sm shadow-2xl border-4 border-white hover:-translate-y-2 transition-transform duration-700"
+                  className="rounded-sm shadow-2xl border-2 md:border-4 border-white hover:-translate-y-2 transition-transform duration-700"
                 />
               </div>
               {/* Decorative Square */}
-              <div className="absolute -z-10 top-0 right-0 w-40 h-40 border-2 border-brand-gold/20 mt-[-20px] mr-[-20px]"></div>
-              <div className="absolute -z-10 bottom-0 left-0 w-40 h-40 bg-brand-gold/10 mb-[-20px] ml-[-20px]"></div>
+              <div className="absolute -z-10 top-0 right-0 w-24 md:w-40 h-24 md:h-40 border-2 border-brand-gold/20 mt-[-10px] md:mt-[-20px] mr-[-10px] md:mr-[-20px] hidden md:block"></div>
+              <div className="absolute -z-10 bottom-0 left-0 w-24 md:w-40 h-24 md:h-40 bg-brand-gold/10 mb-[-10px] md:mb-[-20px] ml-[-10px] md:ml-[-20px] hidden md:block"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Nosso Team Section */}
-      <section className="py-24 bg-white relative">
+      <section className="py-16 md:py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-4">
+          <div className="text-center mb-10 md:mb-16">
+            <h4 className="text-brand-gold font-medium uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs mb-3 md:mb-4">
               Liderança
             </h4>
-            <h2 className="text-3xl md:text-5xl font-header font-light text-brand-slate">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-header font-light text-brand-slate">
               Nosso Team
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 max-w-sm sm:max-w-none mx-auto">
             {team.map((member) => (
               <div key={member.name} className="group relative">
                 <div
                   ref={addToRefs}
-                  className="reveal-element relative overflow-hidden rounded-sm mb-6 aspect-[3/4] bg-gray-100"
+                  className="reveal-element relative overflow-hidden rounded-sm mb-4 md:mb-6 aspect-[3/4] bg-gray-100"
                 >
                   <img
                     src={member.image}
@@ -149,7 +149,7 @@ const About = () => {
                 </div>
 
                 <div className="text-center">
-                  <h3 className="text-xl font-header font-medium text-brand-slate group-hover:text-brand-gold transition-colors duration-300">
+                  <h3 className="text-lg md:text-xl font-header font-medium text-brand-slate group-hover:text-brand-gold transition-colors duration-300">
                     {member.name}
                   </h3>
                   <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
