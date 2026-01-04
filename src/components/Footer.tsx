@@ -33,7 +33,7 @@ const Footer = () => {
 
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.instagram.com/gelinhooprojetart.lda?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 className="text-gray-400 hover:text-brand-gold transition-colors"
               >
                 <i className="fab fa-instagram text-lg md:text-xl"></i>
@@ -107,12 +107,12 @@ const Footer = () => {
             &copy; {currentYear} Gelinhoo Projectart (SU), LDA. Todos os direitos
             reservados.
           </p>
-          <p className="text-gray-500 text-xs font-light hidden md:block">
-            Desenvolvido por: <Link
-                  to="vendaia.site"
-                  className="hover:text-white transition-colors"
-                >
-          </p>
+          </div>
+        <div class="flex items-center space-x-2 text-gray-500 hover:text-[#D4AF37] transition-all duration-300">
+            <span>Desenvolvido por</span>
+            <a href="https://vendaia.site" target="_blank" rel="noopener noreferrer" class="font-bold tracking-tighter hover:scale-105 transform transition">
+                <span class="text-white">VENDAIA</span><span class="text-[#D4AF37]">.SITE</span>
+            </a>
         </div>
       </div>
     </footer>
