@@ -108,7 +108,10 @@ const Footer = () => {
             reservados.
           </p>
           <p className="text-gray-500 text-xs font-light hidden md:block">
-            Website Premium por Gelinhoo Tech.
+            Desenvolvido por: <Link
+                  to="vendaia.site"
+                  className="hover:text-white transition-colors"
+                >
           </p>
         </div>
       </div>
