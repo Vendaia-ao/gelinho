@@ -115,7 +115,7 @@ const Footer = () => {
             </a>
             <div className="w-0 group-hover:w-12 h-[1px] bg-brand-gold transition-all duration-500"></div>
           </div>
-        
+        </div>
       </div>
     </footer>
   );
