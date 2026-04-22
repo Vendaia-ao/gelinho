@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import ceoImage from "@/assets/team/ceo-magdiel.jpeg";
 import aboutImage1 from "@/assets/about/about-1.jpeg";
 import aboutImage2 from "@/assets/about/about-2.jpeg";
+import MissionVisionValues from "@/components/MissionVisionValues";
 
 const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
