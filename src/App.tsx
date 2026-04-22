@@ -9,32 +9,39 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import Expostands from "./pages/Expostands";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./hooks/useAuth";
 
-// Import Font Awesome
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/sobre" element={<About />} />
-            <Route path="/servicos" element={<Services />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contacto" element={<Contact />} />
-          </Route>
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/sobre" element={<About />} />
+              <Route path="/servicos" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/expostands" element={<Expostands />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/contacto" element={<Contact />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
