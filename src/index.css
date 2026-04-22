@@ -261,6 +261,18 @@
     animation: marquee-reverse 40s linear infinite;
   }
 
+  /* Seamless marquee for client logos (no gap on loop) */
+  @keyframes marquee-seamless {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee-seamless {
+    animation: marquee-seamless 35s linear infinite;
+  }
+  .animate-marquee-seamless:hover {
+    animation-play-state: paused;
+  }
+
   /* Bounce animation for scroll indicator */
   .animate-bounce-slow {
     animation: bounce 2s infinite;
