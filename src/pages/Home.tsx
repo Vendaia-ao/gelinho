@@ -53,12 +53,6 @@ const Home = () => {
     "/portfolio/p14.jpeg",
   ];
 
-  const partners = [
-    { name: "Ministério", icon: "fa-landmark" },
-    { name: "BNA", icon: "fa-university" },
-    { name: "Sonangol", icon: "fa-oil-well" },
-    { name: "Unitel", icon: "fa-signal" },
-  ];
 
   return (
     <div className="relative w-full overflow-hidden">
