@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import ceoImage from "@/assets/team/ceo-magdiel.jpeg";
 import aboutImage1 from "@/assets/about/about-1.jpeg";
 import aboutImage2 from "@/assets/about/about-2.jpeg";
+import MissionVisionValues from "@/components/MissionVisionValues";
 
 const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
@@ -109,6 +110,9 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Mission, Vision & Values */}
+      <MissionVisionValues />
 
       {/* Nosso Team Section */}
       <section className="py-16 md:py-24 bg-white relative">

@@ -2,6 +2,11 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero.jpeg";
 import { WireframeCube, WireframeGrid } from "@/components/WireframeShapes";
+import StatsCounter from "@/components/StatsCounter";
+import ExpostandsHighlight from "@/components/ExpostandsHighlight";
+import ProcessTimeline from "@/components/ProcessTimeline";
+import BlogTeaser from "@/components/BlogTeaser";
+import ClientsMarquee from "@/components/ClientsMarquee";
 
 const Home = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
@@ -48,12 +53,6 @@ const Home = () => {
     "/portfolio/p14.jpeg",
   ];
 
-  const partners = [
-    { name: "Ministério", icon: "fa-landmark" },
-    { name: "BNA", icon: "fa-university" },
-    { name: "Sonangol", icon: "fa-oil-well" },
-    { name: "Unitel", icon: "fa-signal" },
-  ];
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -320,32 +319,20 @@ const Home = () => {
           </div>
         </section>
 
-        {/* SECTION: CLIENTES & PARCEIROS */}
-        <section className="py-16 md:py-24 bg-background bg-noise border-t border-border relative">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h4 className="text-gray-400 uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs font-medium mb-8 md:mb-12 animate-fade-in-up">
-              Confiam no nosso trabalho
-            </h4>
+        {/* SECTION: STATS COUNTER */}
+        <StatsCounter />
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 lg:gap-12 opacity-80">
-              {partners.map((partner) => (
-                <div
-                  key={partner.name}
-                  className="group flex items-center justify-center p-4 md:p-8 border border-border bg-secondary hover:bg-background hover:shadow-xl hover:border-brand-gold/30 transition-all duration-500 rounded-xl cursor-default"
-                >
-                  <div className="text-center">
-                    <i
-                      className={`fa-solid ${partner.icon} text-2xl md:text-3xl mb-2 md:mb-3 text-gray-300 group-hover:text-brand-gold transition-colors duration-500`}
-                    ></i>
-                    <h5 className="text-xs md:text-sm font-medium text-gray-400 uppercase tracking-wider group-hover:text-brand-slate transition-colors duration-500">
-                      {partner.name}
-                    </h5>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* SECTION: EXPOSTANDS HIGHLIGHT */}
+        <ExpostandsHighlight />
+
+        {/* SECTION: PROCESS */}
+        <ProcessTimeline type="projectart" title="Como Trabalhamos" subtitle="Processo Projectart" />
+
+        {/* SECTION: BLOG TEASER */}
+        <BlogTeaser />
+
+        {/* SECTION: CLIENTS MARQUEE */}
+        <ClientsMarquee />
 
         {/* CTA FINAL */}
         <section className="py-16 md:py-24 bg-secondary bg-texture-rich relative border-t border-border">
