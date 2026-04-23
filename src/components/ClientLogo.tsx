@@ -31,7 +31,7 @@ const ClientLogo = ({ name, logoUrl }: ClientLogoProps) => {
       <img
         src={resolved}
         alt={name}
-        className="max-h-12 md:max-h-16 w-auto object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110"
+        className="max-h-12 md:max-h-16 w-auto object-contain transition-all duration-500 hover:scale-110"
         loading="lazy"
       />
     );
