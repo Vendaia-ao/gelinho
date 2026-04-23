@@ -43,8 +43,8 @@ const ClientsMarquee = () => {
         <div className="w-16 h-px bg-brand-gold/30 mx-auto mt-6"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-5 gap-4 sm:gap-8 md:gap-12 lg:gap-20 items-center justify-items-center">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 sm:gap-8 md:gap-12 lg:gap-20 items-center justify-items-center">
           {clients.map((c) => (
             <div key={c.id} className="w-full flex items-center justify-center h-16 md:h-24">
               <ClientLogo name={c.name} logoUrl={c.logo_url} />
