@@ -47,7 +47,7 @@ const ExpostandsHighlight = () => {
               />
             </div>
           </div>
-          <div className="absolute -bottom-6 -right-6 w-32 h-32 md:w-48 md:h-48 rounded-sm overflow-hidden border-2 border-brand-gold/40 hidden md:block shadow-2xl z-20 bg-brand-slate">
+          <div className="absolute -bottom-4 -right-4 w-28 h-28 md:-bottom-6 md:-right-6 md:w-48 md:h-48 rounded-sm overflow-hidden border-2 border-brand-gold/40 shadow-2xl z-20 bg-brand-slate">
             <video
               src="/videos/GE.mp4"
               autoPlay

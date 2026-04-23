@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ceoImage from "@/assets/team/ceo-magdiel.jpeg";
 import aboutImage1 from "@/assets/about/about-1.jpeg";
 import aboutImage2 from "@/assets/about/about-2.jpeg";
@@ -8,8 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
-
   const { data: teamMembers, isLoading } = useTeamMembers();
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,16 +28,23 @@ const About = () => {
     return () => observer.disconnect();
   }, [teamMembers, isLoading]);
 
+  useEffect(() => {
+    if (teamMembers && teamMembers.length > 0 && !selectedMemberId) {
+      setSelectedMemberId(teamMembers[0].id);
+    }
+  }, [teamMembers, selectedMemberId]);
+
   const getImageUrl = (url: string | null) => {
     if (!url) return ceoImage;
     if (url.startsWith("http")) return url;
-    // Fallback for relative paths in the "media" bucket
     return `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/media/${url}`;
   };
 
   const addToRefs = (el: HTMLDivElement | null) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
+
+  const selectedMember = teamMembers?.find(m => m.id === selectedMemberId) || (teamMembers && teamMembers[0]);
 
   return (
     <>
@@ -120,64 +127,125 @@ const About = () => {
 
       <MissionVisionValues />
 
-      {/* TEAM */}
-      <section className="py-16 md:py-24 bg-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 md:mb-16">
+      {/* TEAM SECTION */}
+      <section className="relative bg-white overflow-hidden">
+        {/* Mobile: Fullscreen stacked with snap */}
+        <div className="md:hidden h-screen overflow-y-scroll snap-y snap-mandatory">
+          {isLoading ? (
+            <div className="h-screen flex items-center justify-center">
+              <Skeleton className="w-full h-full" />
+            </div>
+          ) : teamMembers && teamMembers.length > 0 ? (
+            teamMembers.map((member) => (
+              <div key={member.id} className="h-screen w-full snap-start relative flex flex-col items-center justify-center p-6 text-center">
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={getImageUrl(member.photo_url)}
+                    alt={member.name}
+                    className="w-full h-full object-cover filter brightness-[0.7] grayscale-[0.3]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                </div>
+                <div className="relative z-10 mt-auto mb-20 text-white">
+                  <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-[10px] mb-2">
+                    {member.role}
+                  </h4>
+                  <h3 className="font-display text-4xl mb-4">{member.name}</h3>
+                  {member.instagram_url && (
+                    <a href={member.instagram_url} target="_blank" rel="noopener noreferrer" className="inline-block bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-brand-gold transition-colors">
+                      <i className="fab fa-instagram text-xl"></i>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="h-screen flex items-center justify-center">
+              <p className="text-gray-400">Nenhum membro da equipa encontrado.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Desktop: Spotlight (1 grande + lista lateral) */}
+        <div className="hidden md:block max-w-7xl mx-auto px-4 py-24">
+          <div className="text-center mb-16">
             <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-4">
               Liderança
             </h4>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-brand-slate">
+            <h2 className="font-display text-5xl text-brand-slate">
               Nosso <span className="italic text-brand-gold">team</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 max-w-sm sm:max-w-none mx-auto">
-            {isLoading ? (
-              Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="space-y-4">
-                  <Skeleton className="aspect-[3/4] w-full" />
-                  <Skeleton className="h-6 w-3/4 mx-auto" />
-                  <Skeleton className="h-4 w-1/2 mx-auto" />
-                </div>
-              ))
-            ) : teamMembers && teamMembers.length > 0 ? (
-              teamMembers.map((member) => (
-                <div key={member.id} className="group relative">
-                  <div
-                    ref={addToRefs}
-                    className="reveal-element relative overflow-hidden rounded-sm mb-4 md:mb-6 aspect-[3/4] bg-gray-100"
-                  >
-                    <img
-                      src={getImageUrl(member.photo_url)}
-                      alt={member.name}
-                      className="object-cover w-full h-full transition-transform duration-1000 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div className="absolute bottom-4 left-0 w-full flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                      {member.instagram_url && (
-                        <a href={member.instagram_url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-gold">
-                          <i className="fab fa-instagram text-lg"></i>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <h3 className="font-display text-2xl text-brand-slate group-hover:text-brand-gold transition-colors duration-500">
-                      {member.name}
-                    </h3>
-                    <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
-                      {member.role}
+          <div className="grid grid-cols-12 gap-12 items-start h-[700px]">
+            {/* Main Spotlight */}
+            <div className="col-span-8 h-full">
+              {isLoading ? (
+                <Skeleton className="w-full h-full rounded-sm" />
+              ) : selectedMember ? (
+                <div className="relative w-full h-full rounded-sm overflow-hidden group shadow-2xl">
+                  <img
+                    src={getImageUrl(selectedMember.photo_url)}
+                    alt={selectedMember.name}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-slate via-transparent to-transparent opacity-90"></div>
+                  <div className="absolute bottom-10 left-10 text-white">
+                    <p className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-2">
+                      {selectedMember.role}
                     </p>
+                    <h3 className="font-display text-5xl mb-4">{selectedMember.name}</h3>
+                    {selectedMember.instagram_url && (
+                      <a href={selectedMember.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-gray-300 hover:text-brand-gold transition-colors">
+                        <i className="fab fa-instagram text-xl"></i>
+                        <span>Seguir no Instagram</span>
+                      </a>
+                    )}
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-10">
-                <p className="text-gray-400">Nenhum membro da equipa encontrado.</p>
-              </div>
-            )}
+              ) : (
+                <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-sm">
+                  <p className="text-gray-400">Selecione um membro</p>
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar List */}
+            <div className="col-span-4 h-full flex flex-col gap-4 overflow-y-auto pr-4 custom-scrollbar">
+              {isLoading ? (
+                Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className="h-24 w-full rounded-sm" />
+                ))
+              ) : teamMembers && teamMembers.length > 0 ? (
+                teamMembers.map((member) => (
+                  <button
+                    key={member.id}
+                    onClick={() => setSelectedMemberId(member.id)}
+                    className={`flex items-center gap-4 p-4 rounded-sm transition-all duration-300 text-left border ${
+                      selectedMemberId === member.id
+                        ? "bg-brand-slate text-white border-brand-gold shadow-lg translate-x-2"
+                        : "bg-white text-brand-slate border-gray-100 hover:border-brand-gold/30 hover:bg-brand-gray"
+                    }`}
+                  >
+                    <div className="w-16 h-16 rounded-sm overflow-hidden flex-shrink-0">
+                      <img
+                        src={getImageUrl(member.photo_url)}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className={`font-display text-lg ${selectedMemberId === member.id ? "text-white" : "text-brand-slate"}`}>
+                        {member.name}
+                      </h4>
+                      <p className={`text-[10px] uppercase tracking-wider ${selectedMemberId === member.id ? "text-brand-gold" : "text-gray-400"}`}>
+                        {member.role}
+                      </p>
+                    </div>
+                  </button>
+                ))
+              ) : null}
+            </div>
           </div>
         </div>
       </section>

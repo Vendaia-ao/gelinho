@@ -193,4 +193,18 @@
     background-image: radial-gradient(hsl(42 85% 48%) 0.6px, transparent 0.6px);
     background-size: 22px 22px;
   }
+  /* Custom Scrollbar Utility */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--brand-gold) / 0.3);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--brand-gold) / 0.6);
+  }
 }
