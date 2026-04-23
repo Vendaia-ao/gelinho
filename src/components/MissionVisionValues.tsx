@@ -1,15 +1,4 @@
 import { useCompanyValues } from "@/hooks/useSiteData";
-import * as LucideIcons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-const toComponent = (key?: string | null): LucideIcon => {
-  if (!key) return LucideIcons.Sparkles;
-  const pascal = key
-    .split("-")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join("");
-  return ((LucideIcons as unknown) as Record<string, LucideIcon>)[pascal] ?? LucideIcons.Sparkles;
-};
 
 const MissionVisionValues = () => {
   const { data: items = [] } = useCompanyValues();
@@ -20,64 +9,68 @@ const MissionVisionValues = () => {
   if (items.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-24 bg-brand-gray bg-texture relative">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12 md:mb-16">
-          <h4 className="text-brand-gold uppercase tracking-[0.3em] text-xs font-medium mb-3">
+    <section className="py-20 md:py-32 bg-background relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="max-w-3xl mb-16 md:mb-24">
+          <h4 className="text-brand-gold uppercase tracking-[0.4em] text-[10px] font-medium mb-5">
             Identidade
           </h4>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-header font-light text-brand-slate">
-            Missão, Visão e Valores
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-slate leading-[1.05]">
+            O que nos move,<br />
+            <span className="italic text-brand-gold">o que nos define.</span>
           </h2>
-          <div className="w-12 h-[2px] bg-brand-gold mx-auto mt-4" />
+          <div className="w-16 h-px bg-brand-gold mt-8" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
-          {[mission, vision].filter(Boolean).map((item) => {
-            const Icon = toComponent(item!.icon);
-            return (
-              <div
-                key={item!.id}
-                className="relative bg-background p-8 md:p-10 rounded-sm shadow-sm border border-border hover:border-brand-gold/40 transition-colors"
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-brand-gold" />
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className="w-6 h-6 text-brand-gold" />
-                  <h3 className="text-xl md:text-2xl font-header font-medium text-brand-slate">
-                    {item!.title}
-                  </h3>
-                </div>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  {item!.description}
-                </p>
-              </div>
-            );
-          })}
+        {/* Mission & Vision — editorial split */}
+        <div className="grid md:grid-cols-2 gap-px bg-border mb-px">
+          {[mission, vision].filter(Boolean).map((item) => (
+            <div
+              key={item!.id}
+              className="bg-background p-8 md:p-12 lg:p-16 group transition-colors duration-700 hover:bg-brand-gray/40"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-brand-gold mb-6">
+                {item!.value_type === "mission" ? "01 — Missão" : "02 — Visão"}
+              </p>
+              <h3 className="font-display text-3xl md:text-4xl text-brand-slate mb-6 leading-[1.1]">
+                {item!.title}
+              </h3>
+              <div className="w-12 h-px bg-brand-slate/20 mb-6 transition-all duration-700 group-hover:w-24 group-hover:bg-brand-gold" />
+              <p className="text-muted-foreground font-light leading-relaxed text-base md:text-lg">
+                {item!.description}
+              </p>
+            </div>
+          ))}
         </div>
 
+        {/* Values — minimal numbered list */}
         {values.length > 0 && (
-          <>
-            <h3 className="text-center text-sm uppercase tracking-[0.3em] text-brand-gold font-medium mb-8">
-              Os Nossos Valores
-            </h3>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {values.map((v) => {
-                const Icon = toComponent(v.icon);
-                return (
-                  <div
-                    key={v.id}
-                    className="text-center p-5 md:p-6 bg-background border border-border rounded-sm hover:shadow-md hover:-translate-y-1 transition-all"
-                  >
-                    <Icon className="w-7 h-7 text-brand-gold mx-auto mb-3" />
-                    <h4 className="font-header font-medium text-brand-slate mb-2">{v.title}</h4>
-                    <p className="text-xs text-muted-foreground font-light leading-relaxed">
+          <div className="mt-20 md:mt-32">
+            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-brand-gold mb-10">
+              03 — Valores
+            </p>
+            <div className="grid md:grid-cols-2 gap-x-12 gap-y-px">
+              {values.map((v, i) => (
+                <div
+                  key={v.id}
+                  className="group flex gap-6 md:gap-8 py-8 border-t border-border last:border-b transition-colors duration-700"
+                >
+                  <span className="font-display text-3xl md:text-4xl text-brand-gold/70 tabular-nums shrink-0 transition-colors duration-700 group-hover:text-brand-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex-1">
+                    <h4 className="font-display text-2xl md:text-3xl text-brand-slate mb-2 transition-colors duration-700 group-hover:text-brand-gold">
+                      {v.title}
+                    </h4>
+                    <p className="text-muted-foreground font-light leading-relaxed text-sm md:text-base">
                       {v.description}
                     </p>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     </section>
