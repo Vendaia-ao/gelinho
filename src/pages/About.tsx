@@ -5,6 +5,7 @@ import aboutImage2 from "@/assets/about/about-2.jpeg";
 import MissionVisionValues from "@/components/MissionVisionValues";
 import { useTeamMembers } from "@/hooks/useSiteData";
 import { Skeleton } from "@/components/ui/skeleton";
+import { X, Instagram, ArrowUpRight } from "lucide-react";
 
 const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
@@ -128,42 +129,47 @@ const About = () => {
       <MissionVisionValues />
 
       {/* TEAM SECTION */}
-      <section className="relative bg-white overflow-hidden">
-        {/* Mobile: Fullscreen stacked with snap */}
-        <div className="md:hidden h-screen overflow-y-scroll snap-y snap-mandatory">
-          {isLoading ? (
-            <div className="h-screen flex items-center justify-center">
-              <Skeleton className="w-full h-full" />
-            </div>
-          ) : teamMembers && teamMembers.length > 0 ? (
-            teamMembers.map((member) => (
-              <div key={member.id} className="h-screen w-full snap-start relative flex flex-col items-center justify-center p-6 text-center">
-                <div className="absolute inset-0 z-0">
+      <section className="relative bg-white overflow-hidden py-20 md:py-0">
+        {/* Mobile: EDITORIAL STRIP + FOCUS SHIFT */}
+        <div className="md:hidden">
+          <div className="px-6 mb-8">
+            <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-[10px] mb-2">
+              Liderança
+            </h4>
+            <h2 className="font-display text-4xl text-brand-slate">
+              Nosso <span className="italic text-brand-gold">team</span>
+            </h2>
+          </div>
+          
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 px-6 pb-12 no-scrollbar">
+            {isLoading ? (
+              <Skeleton className="w-[80vw] h-[110vw] rounded-2xl flex-shrink-0" />
+            ) : teamMembers && teamMembers.length > 0 ? (
+              teamMembers.map((member) => (
+                <div 
+                  key={member.id} 
+                  onClick={() => setActiveDetailMemberId(member.id)}
+                  className="group flex-shrink-0 w-[80vw] aspect-[3/4] snap-center relative rounded-2xl overflow-hidden shadow-xl transition-all duration-700 ease-apple active:scale-[0.98]"
+                >
                   <img
                     src={getImageUrl(member.photo_url)}
                     alt={member.name}
-                    className="w-full h-full object-cover filter brightness-[0.7] grayscale-[0.3]"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <p className="text-brand-gold font-medium uppercase tracking-[0.3em] text-[10px] mb-1">
+                      {member.role}
+                    </p>
+                    <h3 className="font-display text-2xl mb-3">{member.name}</h3>
+                    <button className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/70">
+                      Ver detalhe <ArrowUpRight className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
-                <div className="relative z-10 mt-auto mb-20 text-white">
-                  <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-[10px] mb-2">
-                    {member.role}
-                  </h4>
-                  <h3 className="font-display text-4xl mb-4">{member.name}</h3>
-                  {member.instagram_url && (
-                    <a href={member.instagram_url} target="_blank" rel="noopener noreferrer" className="inline-block bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-brand-gold transition-colors">
-                      <i className="fab fa-instagram text-xl"></i>
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="h-screen flex items-center justify-center">
-              <p className="text-gray-400">Nenhum membro da equipa encontrado.</p>
-            </div>
-          )}
+              ))
+            ) : null}
+          </div>
         </div>
 
         {/* Desktop: Spotlight (1 grande + lista lateral) */}
@@ -249,6 +255,68 @@ const About = () => {
           </div>
         </div>
       </section>
+      {/* DETAIL REVEAL OVERLAY (Apple-style) */}
+      {activeDetailMember && (
+        <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-6 animate-in fade-in duration-300">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-md" 
+            onClick={() => setActiveDetailMemberId(null)}
+          />
+          
+          <div className="relative w-full max-w-xl bg-white md:rounded-3xl rounded-t-[2.5rem] overflow-hidden shadow-2xl animate-in slide-in-from-bottom-full md:slide-in-from-bottom-10 duration-700 ease-apple max-h-[90vh] overflow-y-auto no-scrollbar">
+            <div className="sticky top-0 right-0 w-full flex justify-end p-6 z-20 pointer-events-none">
+              <button 
+                onClick={() => setActiveDetailMemberId(null)}
+                className="w-10 h-10 bg-black/10 backdrop-blur-xl rounded-full flex items-center justify-center text-white pointer-events-auto active:scale-90 transition-transform"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="px-8 pb-12 -mt-16">
+              <div className="aspect-square w-48 h-48 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src={getImageUrl(activeDetailMember.photo_url)}
+                  alt={activeDetailMember.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="text-center">
+                <h4 className="text-brand-gold font-medium uppercase tracking-[0.3em] text-xs mb-3">
+                  {activeDetailMember.role}
+                </h4>
+                <h2 className="font-display text-4xl text-brand-slate mb-6">
+                  {activeDetailMember.name}
+                </h2>
+                
+                <div className="w-12 h-px bg-brand-gold/30 mx-auto mb-6"></div>
+                
+                <p className="text-gray-500 font-light leading-relaxed text-base mb-8 max-w-md mx-auto">
+                  {activeDetailMember.bio || "Comprometido com a excelência e inovação em cada detalhe, trazendo a visão da Gelinhoo Projectart para a realidade angolana."}
+                </p>
+                
+                <div className="flex justify-center items-center gap-6">
+                  {activeDetailMember.instagram_url && (
+                    <a 
+                      href={activeDetailMember.instagram_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 bg-brand-gray border border-border rounded-full text-brand-slate hover:bg-brand-gold hover:text-white transition-all duration-500 group"
+                    >
+                      <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-medium uppercase tracking-widest">Instagram</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Visual Highlight Decorative Elements */}
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-brand-gold/5 to-transparent -z-10"></div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
