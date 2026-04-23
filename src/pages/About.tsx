@@ -11,6 +11,7 @@ const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
   const { data: teamMembers, isLoading } = useTeamMembers();
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
+  const [activeDetailMemberId, setActiveDetailMemberId] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,6 +47,7 @@ const About = () => {
   };
 
   const selectedMember = teamMembers?.find(m => m.id === selectedMemberId) || (teamMembers && teamMembers[0]);
+  const activeDetailMember = teamMembers?.find(m => m.id === activeDetailMemberId);
 
   return (
     <>
