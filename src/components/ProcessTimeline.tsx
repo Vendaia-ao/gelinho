@@ -1,4 +1,5 @@
 import { useProcessSteps } from "@/hooks/useSiteData";
+import { useEffect, useRef } from "react";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -20,6 +21,29 @@ interface Props {
 
 const ProcessTimeline = ({ type, title, subtitle, inverted }: Props) => {
   const { data: steps = [] } = useProcessSteps(type);
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [steps]);
+
+  const addToRefs = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
+  };
+
   if (steps.length === 0) return null;
 
   return (
@@ -49,7 +73,8 @@ const ProcessTimeline = ({ type, title, subtitle, inverted }: Props) => {
               return (
                 <div
                   key={step.id}
-                  className={`relative flex items-center gap-3 md:gap-8 ${isLeft ? "" : "flex-row-reverse"}`}
+                  ref={addToRefs}
+                  className={`reveal-element relative flex items-center gap-3 md:gap-8 ${isLeft ? "" : "flex-row-reverse"}`}
                 >
                   <div className="w-1/2 px-2 md:px-8">
                     <div

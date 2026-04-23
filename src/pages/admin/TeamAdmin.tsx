@@ -10,6 +10,7 @@ type Row = {
   role: string | null;
   bio: string | null;
   photo_url: string | null;
+  instagram_url: string | null;
   display_order: number;
   active: boolean;
 };
@@ -45,6 +46,13 @@ const TeamAdmin = () => (
             rows={3}
             value={form.bio ?? ""}
             onChange={(e) => setForm((p) => ({ ...p, bio: e.target.value }))}
+          />
+        </Field>
+        <Field label="Instagram (opcional)">
+          <Input
+            placeholder="https://instagram.com/perfil"
+            value={form.instagram_url ?? ""}
+            onChange={(e) => setForm((p) => ({ ...p, instagram_url: e.target.value }))}
           />
         </Field>
         <MediaInput

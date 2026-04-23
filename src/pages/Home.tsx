@@ -123,9 +123,9 @@ const Home = () => {
             <div className="relative order-2 md:order-1">
               <div className="absolute -inset-4 bg-brand-gold/10 rounded-lg transform rotate-3 z-0 hidden md:block"></div>
               <img
-                src="https://picsum.photos/id/434/600/700"
+                src="/portfolio/bento-1.jpeg"
                 alt="About Gelinhoo"
-                className="relative rounded-lg shadow-2xl z-10 bg-white p-2 w-full"
+                className="relative rounded-lg shadow-2xl z-10 bg-white p-2 w-full rotate-2"
               />
             </div>
 
@@ -200,9 +200,8 @@ const Home = () => {
                 <div
                   key={s.title}
                   ref={addToRefs}
-                  className={`reveal-element group bg-background p-6 md:p-10 rounded-xl shadow-sm border border-border relative overflow-hidden lift hover:shadow-2xl ${
-                    i === 2 ? "sm:col-span-2 md:col-span-1" : ""
-                  }`}
+                  className={`reveal-element group bg-background p-6 md:p-10 rounded-xl shadow-sm border border-border relative overflow-hidden lift hover:shadow-2xl ${i === 2 ? "sm:col-span-2 md:col-span-1" : ""
+                    }`}
                   style={{ transitionDelay: `${(i + 1) * 100}ms` }}
                 >
                   <div className="absolute top-0 left-0 w-full h-1 bg-brand-gold transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out"></div>

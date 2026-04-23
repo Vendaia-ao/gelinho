@@ -3,9 +3,13 @@ import ceoImage from "@/assets/team/ceo-magdiel.jpeg";
 import aboutImage1 from "@/assets/about/about-1.jpeg";
 import aboutImage2 from "@/assets/about/about-2.jpeg";
 import MissionVisionValues from "@/components/MissionVisionValues";
+import { useTeamMembers } from "@/hooks/useSiteData";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const About = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
+
+  const { data: teamMembers, isLoading } = useTeamMembers();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,20 +26,18 @@ const About = () => {
 
     revealRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [teamMembers, isLoading]);
+
+  const getImageUrl = (url: string | null) => {
+    if (!url) return ceoImage;
+    if (url.startsWith("http")) return url;
+    // Fallback for relative paths in the "media" bucket
+    return `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/media/${url}`;
+  };
 
   const addToRefs = (el: HTMLDivElement | null) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
-
-  const team = [
-    {
-      name: "Magdiel Tigre",
-      role: "Arquitecto & CEO",
-      image: ceoImage,
-      instagram: "https://www.instagram.com/__mvgdiell",
-    },
-  ];
 
   return (
     <>
@@ -131,37 +133,51 @@ const About = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 max-w-sm sm:max-w-none mx-auto">
-            {team.map((member) => (
-              <div key={member.name} className="group relative">
-                <div
-                  ref={addToRefs}
-                  className="reveal-element relative overflow-hidden rounded-sm mb-4 md:mb-6 aspect-[3/4] bg-gray-100"
-                >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="object-cover w-full h-full transition-transform duration-1000 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <div className="absolute bottom-4 left-0 w-full flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                    {member.instagram && (
-                      <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-gold">
-                        <i className="fab fa-instagram text-lg"></i>
-                      </a>
-                    )}
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="space-y-4">
+                  <Skeleton className="aspect-[3/4] w-full" />
+                  <Skeleton className="h-6 w-3/4 mx-auto" />
+                  <Skeleton className="h-4 w-1/2 mx-auto" />
+                </div>
+              ))
+            ) : teamMembers && teamMembers.length > 0 ? (
+              teamMembers.map((member) => (
+                <div key={member.id} className="group relative">
+                  <div
+                    ref={addToRefs}
+                    className="reveal-element relative overflow-hidden rounded-sm mb-4 md:mb-6 aspect-[3/4] bg-gray-100"
+                  >
+                    <img
+                      src={getImageUrl(member.photo_url)}
+                      alt={member.name}
+                      className="object-cover w-full h-full transition-transform duration-1000 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="absolute bottom-4 left-0 w-full flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                      {member.instagram_url && (
+                        <a href={member.instagram_url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-gold">
+                          <i className="fab fa-instagram text-lg"></i>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <h3 className="font-display text-2xl text-brand-slate group-hover:text-brand-gold transition-colors duration-500">
+                      {member.name}
+                    </h3>
+                    <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
+                      {member.role}
+                    </p>
                   </div>
                 </div>
-
-                <div className="text-center">
-                  <h3 className="font-display text-2xl text-brand-slate group-hover:text-brand-gold transition-colors duration-500">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
-                    {member.role}
-                  </p>
-                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-10">
+                <p className="text-gray-400">Nenhum membro da equipa encontrado.</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>

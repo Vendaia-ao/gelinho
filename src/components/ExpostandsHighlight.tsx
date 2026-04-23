@@ -39,15 +39,24 @@ const ExpostandsHighlight = () => {
 
         <div className="relative">
           <div className="aspect-[4/3] rounded-sm overflow-hidden bg-gradient-to-br from-brand-gold/20 to-brand-slate/40 border border-brand-gold/20 flex items-center justify-center">
-            <div className="text-center p-8">
-              <Boxes className="w-20 h-20 text-brand-gold mx-auto mb-4 opacity-90" />
-              <p className="font-header text-xl text-brand-gold tracking-widest">EXPOSTANDS</p>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mt-2">
-                Stands · Eventos · Apoio Total
-              </p>
+            <div className="flex items-center justify-center p-12 w-full h-full">
+              <img 
+                src="/expostandslogo.png" 
+                alt="Gelinho Expostands" 
+                className="w-full h-full object-contain filter brightness-110"
+              />
             </div>
           </div>
-          <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-brand-gold/40 rounded-sm hidden md:block" />
+          <div className="absolute -bottom-6 -right-6 w-32 h-32 md:w-48 md:h-48 rounded-sm overflow-hidden border-2 border-brand-gold/40 hidden md:block shadow-2xl z-20 bg-brand-slate">
+            <video
+              src="/videos/GE.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>

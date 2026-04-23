@@ -2,21 +2,50 @@ import { Link } from "react-router-dom";
 import { useExpostandsInfo } from "@/hooks/useSiteData";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import { Boxes, Hammer, LifeBuoy, Package } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Expostands = () => {
   const { data: info } = useExpostandsInfo();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = ["/stand1.png", "/stand2.png", "/stand3.png"];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="min-h-screen">
       {/* HERO */}
-      <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-center pt-24 bg-brand-slate text-white overflow-hidden">
+      <section className="relative min-h-[70vh] md:min-h-[85vh] flex items-center pt-24 text-white overflow-hidden">
+        {/* SLIDESHOW BACKGROUND */}
+        <div className="absolute inset-0 z-0">
+          {slides.map((slide, index) => (
+            <div
+              key={slide}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <img
+                src={slide}
+                alt={`Stand Slide ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-brand-slate/80 backdrop-blur-[2px]" />
+            </div>
+          ))}
+        </div>
+
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-brand-gold/10 blur-3xl" />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-brand-gold/5 blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/15 text-brand-gold text-[11px] uppercase tracking-[0.25em] font-medium mb-5">
-              <Boxes className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-brand-gold text-[10px] uppercase tracking-[0.3em] font-medium mb-6">
+              <img src="/expostandslogo.png" className="w-4 h-4 object-contain grayscale brightness-200" alt="" />
               Gelinhoo Group
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-header font-light leading-tight mb-5">
@@ -35,8 +64,12 @@ const Expostands = () => {
           </div>
 
           <div className="relative hidden md:block">
-            <div className="aspect-square rounded-sm bg-gradient-to-br from-brand-gold/20 to-brand-slate/40 border border-brand-gold/30 flex items-center justify-center">
-              <Boxes className="w-32 h-32 text-brand-gold opacity-90" />
+            <div className="aspect-square rounded-sm bg-white/5 border border-white/10 flex items-center justify-center p-12 group hover:border-brand-gold/30 transition-colors duration-700">
+              <img 
+                src="/expostandslogo.png" 
+                alt="Gelinho Expostands Logo" 
+                className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
           </div>
         </div>
