@@ -7,6 +7,7 @@ const Contact = () => {
   const { toast } = useToast();
   
   useEffect(() => {
+    document.title = "Contacto | Gelinhoo ProjectArt - Solicite o seu Projeto";
     if (location.hash === "#formulario") {
       const formElement = document.getElementById("formulario");
       if (formElement) {

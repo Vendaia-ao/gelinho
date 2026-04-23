@@ -14,6 +14,7 @@ const About = () => {
   const [activeDetailMemberId, setActiveDetailMemberId] = useState<string | null>(null);
 
   useEffect(() => {
+    document.title = "Sobre Nós | Gelinhoo ProjectArt - Excelência em Angola";
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

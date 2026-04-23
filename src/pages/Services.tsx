@@ -9,6 +9,7 @@ const Services = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
+    document.title = "Serviços | Gelinhoo ProjectArt - Arquitetura e Construção";
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

@@ -12,6 +12,7 @@ const Home = () => {
   const revealRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
+    document.title = "Gelinhoo ProjectArt | Soluções Criativas em Arquitetura e Construção";
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

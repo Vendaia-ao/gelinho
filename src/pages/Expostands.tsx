@@ -10,6 +10,7 @@ const Expostands = () => {
   const slides = ["/stand1.png", "/stand2.png", "/stand3.png"];
 
   useEffect(() => {
+    document.title = "Expostands | Gelinhoo ProjectArt - Stands para Eventos";
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);

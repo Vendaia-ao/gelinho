@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProjects, CATEGORY_LABELS } from "@/hooks/useSiteData";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -30,6 +30,10 @@ const Portfolio = () => {
       return { project, images: images ?? [] };
     },
   });
+
+  useEffect(() => {
+    document.title = "Portfólio | Gelinhoo ProjectArt - Nossas Obras";
+  }, []);
 
   return (
     <>

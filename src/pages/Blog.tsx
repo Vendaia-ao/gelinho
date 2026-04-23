@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { useBlogPosts } from "@/hooks/useSiteData";
 
 const Blog = () => {
   const { data: posts = [], isLoading } = useBlogPosts();
+
+  useEffect(() => {
+    document.title = "Blog | Gelinhoo ProjectArt - Inspiração e Arquitetura";
+  }, []);
 
   return (
     <>

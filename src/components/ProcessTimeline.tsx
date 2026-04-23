@@ -1,16 +1,5 @@
 import { useProcessSteps } from "@/hooks/useSiteData";
 import { useEffect, useRef } from "react";
-import * as LucideIcons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-const toComponent = (key?: string | null): LucideIcon => {
-  if (!key) return LucideIcons.Circle;
-  const pascal = key
-    .split("-")
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join("");
-  return ((LucideIcons as unknown) as Record<string, LucideIcon>)[pascal] ?? LucideIcons.Circle;
-};
 
 interface Props {
   type: "projectart" | "expostands";
@@ -48,59 +37,48 @@ const ProcessTimeline = ({ type, title, subtitle, inverted }: Props) => {
 
   return (
     <section
-      className={`py-16 md:py-24 ${
+      className={`py-20 md:py-32 ${
         inverted ? "bg-brand-slate text-white" : "bg-brand-gray bg-texture text-brand-slate"
-      } relative`}
+      } relative overflow-hidden`}
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-10 md:mb-16">
-          <h4 className="text-brand-gold uppercase tracking-[0.3em] text-[10px] md:text-xs font-medium mb-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="max-w-3xl mb-16 md:mb-24">
+          <h4 className="text-brand-gold uppercase tracking-[0.4em] text-[10px] font-medium mb-5">
             {subtitle ?? "Como Trabalhamos"}
           </h4>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl">
+          <h2 className={`font-display text-4xl sm:text-5xl md:text-6xl ${inverted ? "text-white" : "text-brand-slate"} leading-[1.05]`}>
             {title ?? "O Nosso Processo"}
           </h2>
-          <div className="w-12 h-[2px] bg-brand-gold mx-auto mt-4" />
+          <div className="w-16 h-px bg-brand-gold mt-8" />
         </div>
 
-        {/* Same desktop layout, scaled down on mobile */}
-        <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-brand-gold/30 -translate-x-1/2" />
-          <div className="space-y-5 md:space-y-12">
-            {steps.map((step, i) => {
-              const Icon = toComponent(step.icon);
-              const isLeft = i % 2 === 0;
-              return (
-                <div
-                  key={step.id}
-                  ref={addToRefs}
-                  className={`reveal-element relative flex items-center gap-3 md:gap-8 ${isLeft ? "" : "flex-row-reverse"}`}
-                >
-                  <div className="w-1/2 px-2 md:px-8">
-                    <div
-                      className={`bg-background ${inverted ? "" : "shadow-md"} border border-border rounded-sm p-3 md:p-6 hover:border-brand-gold/40 transition-colors text-brand-slate`}
-                    >
-                      <div className="flex items-center gap-2 md:gap-3 mb-1.5 md:mb-2">
-                        <span className="text-brand-gold font-display text-base md:text-2xl tabular-nums">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <Icon className="w-3.5 h-3.5 md:w-5 md:h-5 text-brand-gold" />
-                      </div>
-                      <h3 className="font-display text-sm md:text-xl mb-1 md:mb-2 leading-tight">
-                        {step.title}
-                      </h3>
-                      <p className="text-muted-foreground text-[11px] md:text-sm font-light leading-relaxed line-clamp-3 md:line-clamp-none">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                  {/* dot */}
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-brand-gold ring-2 md:ring-4 ring-background" />
-                  <div className="w-1/2" />
+        {/* Steps — minimal numbered list grid (replicating "Valores" layout) */}
+        <div className="grid md:grid-cols-2 gap-x-12 md:gap-x-20 gap-y-px">
+          {steps.map((step, i) => {
+            return (
+              <div
+                key={step.id}
+                ref={addToRefs}
+                className="reveal-element group flex gap-6 md:gap-8 py-8 md:py-12 border-t border-border last:border-b transition-colors duration-700"
+              >
+                <div className="flex flex-col items-center shrink-0">
+                  <span className="font-display text-xl md:text-3xl text-brand-gold/70 tabular-nums transition-colors duration-700 group-hover:text-brand-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+                
+                <div className="flex-1">
+                  <h4 className={`font-display text-2xl md:text-3xl ${inverted ? "text-white" : "text-brand-slate"} mb-4 transition-colors duration-700 group-hover:text-brand-gold`}>
+                    {step.title}
+                  </h4>
+                  <p className={`${inverted ? "text-gray-300" : "text-muted-foreground"} font-light leading-relaxed text-sm md:text-base`}>
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
